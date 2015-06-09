@@ -1,0 +1,18 @@
+[Unit]
+Description=Youtrack
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+
+ExecStart=/usr/bin/java \
+    -Ddatabase.location=/var/lib/youtrack/db \
+    -Ddatabase.backup.location=/var/lib/youtrack/backup \
+    -Duser.home=/var/lib/youtrack \
+    -Djetbrains.youtrack.disableBrowser=true \
+    -jar /usr/lib/youtrack/lib/youtrack.jar localhost:8881
+
+
+ExecStop=/usr/bin/java -jar /usr/lib/youtrack/lib/youtrack.jar stop localhost:8881
+
+[Install]
+WantedBy=multi-user.target
