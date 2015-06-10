@@ -4,7 +4,7 @@ After=network.target remote-fs.target nss-lookup.target
 
 [Service]
 
-ExecStart=/usr/bin/java \
+ExecStart=/usr/bin/java -Xmx1g -XX:MaxPermSize=250M -Djava.awt.headless=true \
     -Ddatabase.location=/var/lib/youtrack/db \
     -Ddatabase.backup.location=/var/lib/youtrack/backup \
     -Duser.home=/var/lib/youtrack \
@@ -12,7 +12,7 @@ ExecStart=/usr/bin/java \
     -jar /usr/lib/youtrack/lib/youtrack.jar localhost:8881
 
 
-ExecStop=/usr/bin/java -jar /usr/lib/youtrack/lib/youtrack.jar stop localhost:8881
+ExecStop=/usr/bin/java -Djava.awt.headless=true -jar /usr/lib/youtrack/lib/youtrack.jar stop localhost:8881
 
 [Install]
 WantedBy=multi-user.target
